@@ -12,9 +12,42 @@ import java.util.List;
  * @date 19.08.15
  */
 public class Artist {
+    private Long id;
     private String name;
     private String fullName;
     private List<Album> albums;
+
+    @Override
+    public String toString() {
+        return "Artist{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", fullName='" + fullName + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Artist artist = (Artist) o;
+
+        if (id != null ? !id.equals(artist.id) : artist.id != null) return false;
+        if (name != null ? !name.equals(artist.name) : artist.name != null) return false;
+        if (fullName != null ? !fullName.equals(artist.fullName) : artist.fullName != null) return false;
+        return !(albums != null ? !albums.equals(artist.albums) : artist.albums != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
+        result = 31 * result + (albums != null ? albums.hashCode() : 0);
+        return result;
+    }
 
     public String getName() {
         return name;
@@ -40,32 +73,11 @@ public class Artist {
         this.albums = albums;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Artist artist = (Artist) o;
-
-        if (name != null ? !name.equals(artist.name) : artist.name != null) return false;
-        if (fullName != null ? !fullName.equals(artist.fullName) : artist.fullName != null) return false;
-        return !(albums != null ? !albums.equals(artist.albums) : artist.albums != null);
-
+    public Long getId() {
+        return id;
     }
 
-    @Override
-    public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
-        result = 31 * result + (albums != null ? albums.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Artist{" +
-                "name='" + name + '\'' +
-                ", fullName='" + fullName + '\'' +
-                '}';
+    public void setId(Long id) {
+        this.id = id;
     }
 }
