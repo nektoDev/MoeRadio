@@ -1,6 +1,7 @@
 package ru.moeradio.backend.model;
 
-import java.util.List;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * ru.moeradio.backend.model
@@ -11,18 +12,21 @@ import java.util.List;
  *         tsykin.vyacheslav@otr.ru
  * @date 19.08.15
  */
+
+@Document(collection = "artist")
 public class Artist {
-    private Long id;
+    @Id
+    private String id;
+
+    private Long artistId;
     private String title;
-    private String fullName;
-    private List<Album> albums;
 
     @Override
     public String toString() {
         return "Artist{" +
-                "id=" + id +
+                "id='" + id + '\'' +
+                ", artistId=" + artistId +
                 ", title='" + title + '\'' +
-                ", fullName='" + fullName + '\'' +
                 '}';
     }
 
@@ -34,18 +38,16 @@ public class Artist {
         Artist artist = (Artist) o;
 
         if (id != null ? !id.equals(artist.id) : artist.id != null) return false;
-        if (title != null ? !title.equals(artist.title) : artist.title != null) return false;
-        if (fullName != null ? !fullName.equals(artist.fullName) : artist.fullName != null) return false;
-        return !(albums != null ? !albums.equals(artist.albums) : artist.albums != null);
+        if (artistId != null ? !artistId.equals(artist.artistId) : artist.artistId != null) return false;
+        return !(title != null ? !title.equals(artist.title) : artist.title != null);
 
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (artistId != null ? artistId.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
-        result = 31 * result + (albums != null ? albums.hashCode() : 0);
         return result;
     }
 
@@ -57,27 +59,19 @@ public class Artist {
         this.title = title;
     }
 
-    public String getFullName() {
-        return fullName;
+    public Long getArtistId() {
+        return artistId;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setArtistId(Long artistId) {
+        this.artistId = artistId;
     }
 
-    public List<Album> getAlbums() {
-        return albums;
-    }
-
-    public void setAlbums(List<Album> albums) {
-        this.albums = albums;
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 }
