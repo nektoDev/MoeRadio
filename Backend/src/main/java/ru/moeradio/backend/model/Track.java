@@ -14,7 +14,7 @@ import java.nio.file.Path;
 public class Track {
 
     private Long id;
-    private String name;
+    private String title;
     private Album album;
     private int length;
     private Path path;
@@ -23,7 +23,7 @@ public class Track {
     public String toString() {
         return "Track{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
                 ", length=" + length +
                 ", path=" + path +
                 '}';
@@ -38,7 +38,7 @@ public class Track {
 
         if (length != track.length) return false;
         if (id != null ? !id.equals(track.id) : track.id != null) return false;
-        if (name != null ? !name.equals(track.name) : track.name != null) return false;
+        if (title != null ? !title.equals(track.title) : track.title != null) return false;
         if (album != null ? !album.equals(track.album) : track.album != null) return false;
         return !(path != null ? !path.equals(track.path) : track.path != null);
 
@@ -47,19 +47,19 @@ public class Track {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (album != null ? album.hashCode() : 0);
         result = 31 * result + length;
         result = 31 * result + (path != null ? path.hashCode() : 0);
         return result;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Album getAlbum() {

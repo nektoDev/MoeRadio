@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Album {
     private Long id;
-    private String name;
+    private String title;
     private Artist artist;
     private List<Track> tracks;
 
@@ -21,7 +21,7 @@ public class Album {
     public String toString() {
         return "Album{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
                 '}';
     }
 
@@ -34,7 +34,7 @@ public class Album {
         Album album = (Album) o;
 
         if (id != null ? !id.equals(album.id) : album.id != null) return false;
-        if (name != null ? !name.equals(album.name) : album.name != null) return false;
+        if (title != null ? !title.equals(album.title) : album.title != null) return false;
         if (artist != null ? !artist.equals(album.artist) : album.artist != null) return false;
         return !(tracks != null ? !tracks.equals(album.tracks) : album.tracks != null);
 
@@ -43,18 +43,18 @@ public class Album {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (artist != null ? artist.hashCode() : 0);
         result = 31 * result + (tracks != null ? tracks.hashCode() : 0);
         return result;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Artist getArtist() {

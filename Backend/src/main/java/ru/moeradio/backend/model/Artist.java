@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Artist {
     private Long id;
-    private String name;
+    private String title;
     private String fullName;
     private List<Album> albums;
 
@@ -21,7 +21,7 @@ public class Artist {
     public String toString() {
         return "Artist{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
                 ", fullName='" + fullName + '\'' +
                 '}';
     }
@@ -34,7 +34,7 @@ public class Artist {
         Artist artist = (Artist) o;
 
         if (id != null ? !id.equals(artist.id) : artist.id != null) return false;
-        if (name != null ? !name.equals(artist.name) : artist.name != null) return false;
+        if (title != null ? !title.equals(artist.title) : artist.title != null) return false;
         if (fullName != null ? !fullName.equals(artist.fullName) : artist.fullName != null) return false;
         return !(albums != null ? !albums.equals(artist.albums) : artist.albums != null);
 
@@ -43,18 +43,18 @@ public class Artist {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
         result = 31 * result + (albums != null ? albums.hashCode() : 0);
         return result;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getFullName() {
