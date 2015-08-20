@@ -1,5 +1,10 @@
 package ru.moeradio.backend.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.nio.file.Path;
 
 /**
@@ -11,9 +16,12 @@ import java.nio.file.Path;
  *         tsykin.vyacheslav@otr.ru
  * @date 19.08.15
  */
+@Document
 public class Track {
+    @Id
+    private String id;
 
-    private Long id;
+    private String trackId;
     private String title;
     private Album album;
     private int length;
@@ -22,8 +30,10 @@ public class Track {
     @Override
     public String toString() {
         return "Track{" +
-                "id=" + id +
+                "id='" + id + '\'' +
+                ", trackId='" + trackId + '\'' +
                 ", title='" + title + '\'' +
+                ", album=" + album +
                 ", length=" + length +
                 ", path=" + path +
                 '}';
@@ -32,26 +42,31 @@ public class Track {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+
         if (o == null || getClass() != o.getClass()) return false;
 
         Track track = (Track) o;
 
-        if (length != track.length) return false;
-        if (id != null ? !id.equals(track.id) : track.id != null) return false;
-        if (title != null ? !title.equals(track.title) : track.title != null) return false;
-        if (album != null ? !album.equals(track.album) : track.album != null) return false;
-        return !(path != null ? !path.equals(track.path) : track.path != null);
-
+        return new EqualsBuilder()
+                .append(length, track.length)
+                .append(id, track.id)
+                .append(trackId, track.trackId)
+                .append(title, track.title)
+                .append(album, track.album)
+                .append(path, track.path)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (album != null ? album.hashCode() : 0);
-        result = 31 * result + length;
-        result = 31 * result + (path != null ? path.hashCode() : 0);
-        return result;
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .append(trackId)
+                .append(title)
+                .append(album)
+                .append(length)
+                .append(path)
+                .toHashCode();
     }
 
     public String getTitle() {
@@ -86,11 +101,19 @@ public class Track {
         this.path = path;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public String getTrackId() {
+        return trackId;
+    }
+
+    public void setTrackId(String trackId) {
+        this.trackId = trackId;
     }
 }

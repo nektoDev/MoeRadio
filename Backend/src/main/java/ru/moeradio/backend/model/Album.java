@@ -1,6 +1,9 @@
 package ru.moeradio.backend.model;
 
-import java.util.List;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * ru.moeradio.backend.model
@@ -11,42 +14,49 @@ import java.util.List;
  *         tsykin.vyacheslav@otr.ru
  * @date 19.08.15
  */
+@Document
 public class Album {
-    private Long id;
+    @Id
+    private String id;
+
+    private Long albumId;
     private String title;
     private Artist artist;
-    private List<Track> tracks;
 
     @Override
     public String toString() {
         return "Album{" +
-                "id=" + id +
+                "id='" + id + '\'' +
+                ", albumId=" + albumId +
                 ", title='" + title + '\'' +
+                ", artist=" + artist +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
+
         if (o == null || getClass() != o.getClass()) return false;
 
         Album album = (Album) o;
 
-        if (id != null ? !id.equals(album.id) : album.id != null) return false;
-        if (title != null ? !title.equals(album.title) : album.title != null) return false;
-        if (artist != null ? !artist.equals(album.artist) : album.artist != null) return false;
-        return !(tracks != null ? !tracks.equals(album.tracks) : album.tracks != null);
-
+        return new EqualsBuilder()
+                .append(id, album.id)
+                .append(albumId, album.albumId)
+                .append(title, album.title)
+                .append(artist, album.artist)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (artist != null ? artist.hashCode() : 0);
-        result = 31 * result + (tracks != null ? tracks.hashCode() : 0);
-        return result;
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .append(albumId)
+                .append(title)
+                .append(artist)
+                .toHashCode();
     }
 
     public String getTitle() {
@@ -65,19 +75,19 @@ public class Album {
         this.artist = artist;
     }
 
-    public List<Track> getTracks() {
-        return tracks;
-    }
-
-    public void setTracks(List<Track> tracks) {
-        this.tracks = tracks;
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public Long getAlbumId() {
+        return albumId;
+    }
+
+    public void setAlbumId(Long albumId) {
+        this.albumId = albumId;
     }
 }
