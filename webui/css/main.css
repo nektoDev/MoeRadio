@@ -84,3 +84,9 @@ body {
     margin-top: 0;
 }
 
+.panels-stacked .panel {
+    margin-bottom: 0;
+    border-radius: 0;
+    border-bottom-color: transparent;
+}
+
