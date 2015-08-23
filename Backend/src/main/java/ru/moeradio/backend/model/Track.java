@@ -6,8 +6,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.nio.file.Path;
-
 /**
  * ru.moeradio.backend.model
  * Backend
@@ -25,7 +23,7 @@ public class Track {
     private Integer number;
     private String title;
     private Integer length;
-    private Path path;
+    private String path;
 
     @DBRef
     private Album album;
@@ -96,11 +94,11 @@ public class Track {
         this.length = length;
     }
 
-    public Path getPath() {
+    public String getPath() {
         return path;
     }
 
-    public void setPath(Path path) {
+    public void setPath(String path) {
         this.path = path;
     }
 
