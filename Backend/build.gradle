@@ -36,6 +36,7 @@ configurations {
 }
 
 dependencies {
+    compile("org.apache.commons:commons-lang3:3.4")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
     compile("org.springframework.boot:spring-boot-starter-web")
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
