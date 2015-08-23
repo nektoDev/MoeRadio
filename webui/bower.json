@@ -1,0 +1,23 @@
+{
+  "name": "webui",
+  "version": "0.0.0",
+  "homepage": "https://github.com/nektoDev/MoeRadio",
+  "authors": [
+    "Вячеслав Цыкин <tsykin.vyacheslav@otr.ru>"
+  ],
+  "description": "Web-based UI for MoeRadio application",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "js/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone-amd": "~1",
+    "jquery": "~2",
+    "underscore-amd": "~1.5.2"
+  }
+}

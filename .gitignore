@@ -3,3 +3,5 @@ Backend/out
 Backend/.idea
 Backend/.gradle
 Backend/build
+webui/.idea
+.DS_Store
