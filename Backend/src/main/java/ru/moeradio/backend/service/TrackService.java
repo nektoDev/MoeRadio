@@ -22,8 +22,6 @@ public class TrackService {
     private TrackRepository trackRepository;
 
     @Autowired
-    private ArtistService artistService;
-    @Autowired
     private AlbumService albumService;
 
     public Track merge(Track track) {
