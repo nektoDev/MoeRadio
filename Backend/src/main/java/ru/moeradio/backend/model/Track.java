@@ -21,9 +21,11 @@ public class Track {
     @Id
     private String id;
 
-    private String trackId;
+    private Long albumId;
+    private Long artistId;
+    private Long trackId;
+
     private String title;
-    private Album album;
     private int length;
     private Path path;
 
@@ -31,9 +33,10 @@ public class Track {
     public String toString() {
         return "Track{" +
                 "id='" + id + '\'' +
-                ", trackId='" + trackId + '\'' +
+                ", albumId=" + albumId +
+                ", artistId=" + artistId +
+                ", trackId=" + trackId +
                 ", title='" + title + '\'' +
-                ", album=" + album +
                 ", length=" + length +
                 ", path=" + path +
                 '}';
@@ -50,9 +53,10 @@ public class Track {
         return new EqualsBuilder()
                 .append(length, track.length)
                 .append(id, track.id)
+                .append(albumId, track.albumId)
+                .append(artistId, track.artistId)
                 .append(trackId, track.trackId)
                 .append(title, track.title)
-                .append(album, track.album)
                 .append(path, track.path)
                 .isEquals();
     }
@@ -61,9 +65,10 @@ public class Track {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
+                .append(albumId)
+                .append(artistId)
                 .append(trackId)
                 .append(title)
-                .append(album)
                 .append(length)
                 .append(path)
                 .toHashCode();
@@ -77,12 +82,12 @@ public class Track {
         this.title = title;
     }
 
-    public Album getAlbum() {
-        return album;
+    public Long getAlbumId() {
+        return albumId;
     }
 
-    public void setAlbum(Album album) {
-        this.album = album;
+    public void setAlbumId(Long albumId) {
+        this.albumId = albumId;
     }
 
     public int getLength() {
@@ -109,11 +114,19 @@ public class Track {
         this.id = id;
     }
 
-    public String getTrackId() {
+    public Long getTrackId() {
         return trackId;
     }
 
-    public void setTrackId(String trackId) {
+    public void setTrackId(Long trackId) {
         this.trackId = trackId;
+    }
+
+    public Long getArtistId() {
+        return artistId;
+    }
+
+    public void setArtistId(Long artistId) {
+        this.artistId = artistId;
     }
 }
