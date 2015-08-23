@@ -25,11 +25,11 @@ import java.util.List;
 public class AlbumService {
 
     @Autowired
-    AlbumRepository albumRepository;
+    private AlbumRepository albumRepository;
     @Autowired
-    ArtistService artistService;
+    private ArtistService artistService;
     @Autowired
-    TrackService trackService;
+    private TrackService trackService;
 
     /**
      * Merge into database input {@link Album} object. If there is one with same title and {@link Artist}
