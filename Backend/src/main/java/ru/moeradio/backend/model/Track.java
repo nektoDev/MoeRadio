@@ -3,6 +3,7 @@ package ru.moeradio.backend.model;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.nio.file.Path;
@@ -21,21 +22,20 @@ public class Track {
     @Id
     private String id;
 
-    private Long albumId;
-    private Long artistId;
-    private Long trackId;
-
+    private Integer number;
     private String title;
-    private int length;
+    private Integer length;
     private Path path;
+
+    @DBRef
+    private Album album;
 
     @Override
     public String toString() {
         return "Track{" +
                 "id='" + id + '\'' +
-                ", albumId=" + albumId +
-                ", artistId=" + artistId +
-                ", trackId=" + trackId +
+                ", album=" + album +
+                ", number=" + number +
                 ", title='" + title + '\'' +
                 ", length=" + length +
                 ", path=" + path +
@@ -53,9 +53,8 @@ public class Track {
         return new EqualsBuilder()
                 .append(length, track.length)
                 .append(id, track.id)
-                .append(albumId, track.albumId)
-                .append(artistId, track.artistId)
-                .append(trackId, track.trackId)
+                .append(album, track.album)
+                .append(number, track.number)
                 .append(title, track.title)
                 .append(path, track.path)
                 .isEquals();
@@ -65,9 +64,8 @@ public class Track {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
-                .append(albumId)
-                .append(artistId)
-                .append(trackId)
+                .append(album)
+                .append(number)
                 .append(title)
                 .append(length)
                 .append(path)
@@ -82,12 +80,12 @@ public class Track {
         this.title = title;
     }
 
-    public Long getAlbumId() {
-        return albumId;
+    public Album getAlbum() {
+        return album;
     }
 
-    public void setAlbumId(Long albumId) {
-        this.albumId = albumId;
+    public void setAlbum(Album album) {
+        this.album = album;
     }
 
     public int getLength() {
@@ -114,19 +112,11 @@ public class Track {
         this.id = id;
     }
 
-    public Long getTrackId() {
-        return trackId;
+    public Integer getNumber() {
+        return number;
     }
 
-    public void setTrackId(Long trackId) {
-        this.trackId = trackId;
-    }
-
-    public Long getArtistId() {
-        return artistId;
-    }
-
-    public void setArtistId(Long artistId) {
-        this.artistId = artistId;
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 }

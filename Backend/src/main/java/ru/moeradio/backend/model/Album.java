@@ -3,7 +3,10 @@ package ru.moeradio.backend.model;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 /**
  * ru.moeradio.backend.model
@@ -19,15 +22,17 @@ public class Album {
     @Id
     private String id;
 
-    private Long albumId;
     private String title;
+
+    @DBRef
     private Artist artist;
+    @DBRef
+    private List<Track> tracks;
 
     @Override
     public String toString() {
         return "Album{" +
                 "id='" + id + '\'' +
-                ", albumId=" + albumId +
                 ", title='" + title + '\'' +
                 ", artist=" + artist +
                 '}';
@@ -43,7 +48,6 @@ public class Album {
 
         return new EqualsBuilder()
                 .append(id, album.id)
-                .append(albumId, album.albumId)
                 .append(title, album.title)
                 .append(artist, album.artist)
                 .isEquals();
@@ -53,7 +57,6 @@ public class Album {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
-                .append(albumId)
                 .append(title)
                 .append(artist)
                 .toHashCode();
@@ -83,11 +86,11 @@ public class Album {
         this.id = id;
     }
 
-    public Long getAlbumId() {
-        return albumId;
+    public List<Track> getTracks() {
+        return tracks;
     }
 
-    public void setAlbumId(Long albumId) {
-        this.albumId = albumId;
+    public void setTracks(List<Track> tracks) {
+        this.tracks = tracks;
     }
 }
