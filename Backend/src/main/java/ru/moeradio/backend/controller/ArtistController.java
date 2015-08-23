@@ -6,10 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.moeradio.backend.model.Artist;
-import ru.moeradio.backend.repository.ArtistRepository;
+import ru.moeradio.backend.service.ArtistService;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * ru.moeradio.backend.controller
@@ -24,19 +23,15 @@ import java.util.concurrent.atomic.AtomicLong;
 public class ArtistController {
 
     @Autowired
-    private ArtistRepository artistRepository;
-
-    private AtomicLong counter = new AtomicLong(0l);
+    private ArtistService artistService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Artist> list() {
-        return artistRepository.findAll();
+        return artistService.findAll();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public Artist get(@PathVariable(value = "id") Long id) {
-        return artistRepository.findOne(id.toString());
+        return artistService.findOne(id.toString());
     }
-
-
 }

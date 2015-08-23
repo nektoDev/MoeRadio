@@ -1,6 +1,7 @@
 package ru.moeradio.backend.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import ru.moeradio.backend.model.Album;
 import ru.moeradio.backend.model.Track;
 
 /**
@@ -12,4 +13,6 @@ import ru.moeradio.backend.model.Track;
  * @date 23.08.15
  */
 public interface TrackRepository extends MongoRepository<Track, String> {
+
+    Track findOneByTitleAndAlbum(String title, Album album);
 }
