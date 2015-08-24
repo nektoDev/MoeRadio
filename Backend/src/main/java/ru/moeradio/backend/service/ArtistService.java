@@ -24,8 +24,6 @@ import java.util.List;
 public class ArtistService {
     @Autowired
     private ArtistRepository artistRepository;
-    @Autowired
-    private AlbumService albumService;
 
     /**
      * Merge into database input {@link Artist} object. If there is one with same title
@@ -50,30 +48,23 @@ public class ArtistService {
     }
 
     /**
-     * Add {@link Album} reference to {@link Artist} object. Get artist from album into input params.
-     * This method will merge both objects, {@link Album} and {@link Artist} before add reference,
-     * in case them are in non-saved state
+     * Add {@link Album} to {@link Artist} object.
+     * This method will @{link #merge(Artist)} {@link Artist}
      *
-     * @param album {@link Album} object to add into {@link Album#artist}
+     * @param album {@link Album} object to add into {@link Artist#albums}
+     * @param artist {@link Artist} to add album
      * @return {@link Artist} object with added {@link Artist#albums}
      * @see Artist
      * @see Album
      * @see #merge(Artist)
-     * @see AlbumService#merge(Album)
      */
-    public Artist addAlbum(Album album) {
-
-        Artist artist = album.getArtist();
-        album.setArtist(this.merge(artist));
-
-        album = albumService.merge(album);
+    public Artist addAlbum(Artist artist, Album album) {
 
         if (artist.getAlbums() == null) {
             artist.setAlbums(new ArrayList<>());
-            artist.getAlbums().add(album);
-        } else {
-            artist.getAlbums().add(album);
         }
+
+        artist.getAlbums().add(album);
 
         return this.merge(artist);
     }

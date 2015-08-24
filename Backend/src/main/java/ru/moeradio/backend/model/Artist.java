@@ -25,8 +25,6 @@ public class Artist {
 
     private String title;
     private String description;
-
-    @DBRef
     private List<Album> albums;
 
     @Override
