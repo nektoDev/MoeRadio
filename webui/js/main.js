@@ -13,26 +13,29 @@ window.ArtistCollection = Backbone.Collection.extend({
 // Views
 window.ArtistListView = Backbone.View.extend({
 
-    tagName:'ul',
-
     initialize:function () {
+        this.template = _.template(tpl.get('artist-list'));
         this.model.bind("reset", this.render, this);
     },
 
     render:function (eventName) {
+        var child = $(this.el);
         _.each(this.model.models, function (artist) {
-            $(this.el).append(new ArtistListItemView({model:artist}).render().el);
+            child.append(new ArtistListItemView({model:artist}).render().el);
         }, this);
+
+        $(this.el).html(this.template({'child':child.html()}));
         return this;
     }
-
 });
 
 window.ArtistListItemView = Backbone.View.extend({
 
     tagName:"li",
 
-    template:_.template($('#tpl-artist-list-item').html()),
+    initialize:function () {
+        this.template = _.template(tpl.get('artist-list-item'));
+    },
 
     render:function (eventName) {
         $(this.el).html(this.template(this.model.toJSON()));
@@ -43,7 +46,9 @@ window.ArtistListItemView = Backbone.View.extend({
 
 window.ArtistView = Backbone.View.extend({
 
-    template:_.template($('#tpl-artist-details').html()),
+    initialize:function () {
+        this.template = _.template(tpl.get('artist-details'));
+    },
 
     render:function (eventName) {
         $(this.el).html(this.template(this.model.toJSON()));
@@ -61,7 +66,7 @@ var AppRouter = Backbone.Router.extend({
     },
 
     list:function () {
-        var artistList = new ArtistCollection();
+        artistList = new ArtistCollection();
         artistList.fetch({
             success: function(){
                 this.artistListView = new ArtistListView({model:artistList});
@@ -82,6 +87,9 @@ var AppRouter = Backbone.Router.extend({
 
 $(document).ready(function() {
     $.material.init();
-    var app = new AppRouter();
-    Backbone.history.start();
+    tpl.loadTemplates(['artist-list', 'artist-list-item', 'artist-details'], function() {
+
+        app = new AppRouter();
+        Backbone.history.start();
+    });
 });
