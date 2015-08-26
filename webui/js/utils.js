@@ -33,3 +33,12 @@ tpl = {
     }
 
 };
+
+function getTrackLength(sec) {
+    var hours = parseInt(sec / 3600);
+    var minutes = parseInt(sec / 60) % 60;
+    var seconds = sec % 60;
+
+    return (hours > 0 ? (hours < 10 ? "0" + hours : hours) + ":" : "") + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+}
+
