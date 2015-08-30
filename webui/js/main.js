@@ -3,7 +3,7 @@
  */
 
 // Models
-window.Artist = Backbone.Model.extend();
+window.Artist = Backbone.Model.extend({});
 
 window.ArtistCollection = Backbone.Collection.extend({
     model: Artist,
@@ -67,10 +67,19 @@ var AppRouter = Backbone.Router.extend({
 
     list:function () {
         artistList = new ArtistCollection();
+
         artistList.fetch({
             success: function(){
                 this.artistListView = new ArtistListView({model:artistList});
                 $('#sidebar').html(this.artistListView.render().el);
+
+                var child = $(new ArtistView().el);
+
+                artistList.each(function (a) {
+                    child.append(new ArtistView({model: a}).render().el);
+                });
+
+                $('#content').html(child);
             }
         });
 
