@@ -53,6 +53,11 @@ window.ArtistView = Backbone.View.extend({
     render:function (eventName) {
         $(this.el).html(this.template(this.model.toJSON()));
         return this;
+    },
+
+    close: function () {
+        $(this.el).unbind();
+        $(this.el).empty();
     }
 
 });
@@ -66,29 +71,47 @@ var AppRouter = Backbone.Router.extend({
     },
 
     list:function () {
-        artistList = new ArtistCollection();
+        this.artistList = new ArtistCollection();
+        var self = this;
 
-        artistList.fetch({
+        this.artistList.fetch({
             success: function(){
-                this.artistListView = new ArtistListView({model:artistList});
+                this.artistListView = new ArtistListView({model: self.artistList});
                 $('#sidebar').html(this.artistListView.render().el);
 
-                var child = $(new ArtistView().el);
+                if (self.requestedId) {
+                    self.artistDetails(self.requestedId);
+                } else {
+                    var child = $(new ArtistView().el);
 
-                artistList.each(function (a) {
-                    child.append(new ArtistView({model: a}).render().el);
-                });
+                    self.artistList.each(function (a) {
+                        child.append(new ArtistView({model: a}).render().el);
+                    });
 
-                $('#content').html(child);
+                    $('#content').html(child);
+                }
+
             }
         });
 
     },
 
     artistDetails:function (id) {
-        this.artist = artistList.get(id);
-        this.artistView = new ArtistView({model:this.artist});
-        $('#content').html(this.artistView.render().el);
+        if (id) {
+
+            if (this.artistList) {
+                this.artist = this.artistList.get(id);
+                if (this.artistView) this.artistView.close();
+                this.artistView = new ArtistView({model: this.artist});
+                $('#content').html(this.artistView.render().el);
+            } else {
+                this.requestedId = id;
+                this.list();
+            }
+
+        } else {
+            this.list();
+        }
     }
 });
 
